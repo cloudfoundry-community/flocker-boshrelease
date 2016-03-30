@@ -11,8 +11,6 @@ templates:
   flocker-client.crt.erb: config/flocker-client.crt
   flocker-client.key.erb: config/flocker-client.key
 
-  plugin.crt.erb: config/plugin.crt
-  plugin.key.erb: config/plugin.key
   
 properties:
   flocker.cluster_crt:
@@ -26,9 +24,5 @@ properties:
   flocker.client_crt:
     description:
   flocker.client_key:
-    description:
-  flocker.plugin_crt:
-    description:
-  flocker.plugin_key:
     description:
 

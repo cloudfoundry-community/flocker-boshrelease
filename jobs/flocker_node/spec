@@ -6,7 +6,15 @@ templates:
   agent.yml.erb: config/agent.yml
   node.crt.erb: config/node.crt
   node.key.erb: config/node.key
+  plugin.crt.erb: config/plugin.crt
+  plugin.key.erb: config/plugin.key
+  
 properties:
+  flocker.plugin_crt:
+    description:
+  flocker.plugin_key:
+    description:
+
   flocker.cluster_crt:
     description:
 

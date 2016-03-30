@@ -1,5 +1,27 @@
 # BOSH Release for flocker
 
+
+
+## Design
+This bosh release is to be used with the docker bosh release.
+It enables on the fly persistent volume creation for docker containers
+On OpenStack, it creates dedicated volumes for docker containers, enabling HA and Docker Swarm clustering while keeping container persistent data
+
+### prerequisite
+generates necessary certificates for the flocked deployment
+flocker-ca command see 
+
+creates a bosh deployment, based on docker-bosh-release
+
+the template flocker_control generates the necessary configuration for flocker_control service
+the template flocker_node generates the required configuration for node level service (flocker_dataset_agent / ...)
+
+start the containers targeting /var/vcap/jobs/flocker_control as /etc/flocker, for master vm
+start the containers targeting /var/vcap/jobs/flocker_node as /etc/flocker, for node vm
+
+
+
+
 ## Usage
 
 To use this bosh release, first upload it to your bosh:
