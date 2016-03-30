@@ -1,0 +1,37 @@
+---
+name: flocker_node
+packages: []
+templates:
+  agent.yml.erb: config/agent.yml
+  node.crt.erb: config/node.crt
+  node.key.erb: config/node.key
+properties:
+  flocker.node.agent.control_service.hostname
+    description:
+    
+  flocker.node.cert
+    description:
+    
+  flocker.node.key
+    description:
+    
+  flocker.node.agent.dataset.backend:
+    description:
+    
+  flocker.node.agent.dataset.region:
+    description:
+
+  flocker.node.agent.dataset.auth_plugin:
+    description:
+
+  flocker.node.agent.dataset.auth_url:
+    description:
+
+  flocker.node.agent.dataset.tenant:
+    description:
+
+  flocker.node.agent.dataset.username:
+    description:
+
+  flocker.node.agent.dataset.api_key:
+    description:

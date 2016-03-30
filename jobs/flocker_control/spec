@@ -1,0 +1,34 @@
+---
+name: flocker_control
+packages: []
+templates:
+  cluster.crt.erb: config/cluster.crt
+  cluster.key.erb: config/cluster.key
+  
+  control.crt.erb: config/control.crt
+  control.key.erb: config/control.key
+
+  flocker-client.crt.erb: config/flocker-client.crt
+  flocker-client.key.erb: config/.flocker-clientkey
+
+  plugin.crt.erb: config/plugin.crt
+  plugin.key.erb: config/plugin.key
+  
+properties:
+  flocker.cluster_cert
+    description:
+  flocker.cluster_key
+    description:
+  flocker.control_cert
+    description:
+  flocker.control_key
+    description:
+  flocker.client_cert
+    description:
+  flocker.client_key
+    description:
+  flocker.plugin_cert
+    description:
+  flocker.plugin_key
+    description:
+
