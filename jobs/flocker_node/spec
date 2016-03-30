@@ -45,5 +45,5 @@ properties:
   flocker.node.agent.dataset.username:
     description:
 
-  flocker.node.agent.dataset.api_key:
+  flocker.node.agent.dataset.password:
     description:
