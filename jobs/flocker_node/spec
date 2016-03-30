@@ -6,13 +6,13 @@ templates:
   node.crt.erb: config/node.crt
   node.key.erb: config/node.key
 properties:
-  flocker.node.agent.control_service.hostname
+  flocker.node.agent.control_service.hostname:
     description:
     
-  flocker.node.cert
+  flocker.node.cert:
     description:
     
-  flocker.node.key
+  flocker.node.key:
     description:
     
   flocker.node.agent.dataset.backend:

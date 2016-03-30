@@ -15,20 +15,20 @@ templates:
   plugin.key.erb: config/plugin.key
   
 properties:
-  flocker.cluster_crt
+  flocker.cluster_crt:
     description:
-  flocker.cluster_key
+  flocker.cluster_key:
     description:
-  flocker.control_crt
+  flocker.control_crt:
     description:
-  flocker.control_key
+  flocker.control_key:
     description:
-  flocker.client_crt
+  flocker.client_crt:
     description:
-  flocker.client_key
+  flocker.client_key:
     description:
-  flocker.plugin_crt
+  flocker.plugin_crt:
     description:
-  flocker.plugin_key
+  flocker.plugin_key:
     description:
 
