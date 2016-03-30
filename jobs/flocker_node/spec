@@ -6,6 +6,9 @@ templates:
   node.crt.erb: config/node.crt
   node.key.erb: config/node.key
 properties:
+  flocker.cluster_crt:
+    description:
+
   flocker.node.agent.control_service.hostname:
     description:
     
