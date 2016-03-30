@@ -5,11 +5,11 @@ templates:
   cluster.crt.erb: config/cluster.crt
   cluster.key.erb: config/cluster.key
   
-  control.crt.erb: config/control.crt
-  control.key.erb: config/control.key
+  control.crt.erb: config/control-service.crt
+  control.key.erb: config/control-service.key
 
   flocker-client.crt.erb: config/flocker-client.crt
-  flocker-client.key.erb: config/.flocker-clientkey
+  flocker-client.key.erb: config/flocker-client.key
 
   plugin.crt.erb: config/plugin.crt
   plugin.key.erb: config/plugin.key
