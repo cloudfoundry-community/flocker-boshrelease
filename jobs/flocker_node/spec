@@ -2,6 +2,7 @@
 name: flocker_node
 packages: []
 templates:
+  cluster.crt.erb: config/cluster.crt
   agent.yml.erb: config/agent.yml
   node.crt.erb: config/node.crt
   node.key.erb: config/node.key
