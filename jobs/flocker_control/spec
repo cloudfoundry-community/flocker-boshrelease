@@ -5,8 +5,8 @@ templates:
   cluster.crt.erb: config/cluster.crt
   cluster.key.erb: config/cluster.key
   
-  control.crt.erb: config/control-service.crt
-  control.key.erb: config/control-service.key
+  control-service.crt.erb: config/control-service.crt
+  control-service.key.erb: config/control-service.key
 
   flocker-client.crt.erb: config/flocker-client.crt
   flocker-client.key.erb: config/flocker-client.key
