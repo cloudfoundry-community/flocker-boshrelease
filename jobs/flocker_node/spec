@@ -39,7 +39,7 @@ properties:
   flocker.node.agent.dataset.auth_url:
     description:
 
-  flocker.node.agent.dataset.tenant:
+  flocker.node.agent.dataset.tenant_name:
     description:
 
   flocker.node.agent.dataset.username:
