@@ -37,6 +37,12 @@ The images are the clustehq images, initially designed for CoreOs Flocker protot
 
 The flocker containers services need high level of control of the bosh vms (host networking, priviliged access to create the device on node vm)
 
+Tested on :
+- bosh 255
+- openstack Juno Iaas
+- docker bosh release 23
+- stemcell 3215
+
 
 ### configuration
 To generate the necessary certificates for the flocker deployment, use flocker-ca command see
@@ -167,10 +173,84 @@ properties:
 
 ```
 
+Configure the flocker containers.
+On flocker_control job
+
+```
+    properties:
+      containers:
+        # docker run --name=flocker-control-volume -v /var/lib/flocker clusterhq/flocker-control-service true
+        name: flocker_control_volume 
+          image: "clusterhq/flocker-control-service"
+          restart: no
+          bind-volumes:
+          - "/var/lib/flocker"
+          command: "true"
+
+      # docker run --restart=always -d --net=host -v /etc/flocker:/etc/flocker --volumes-from=flocker-control-volume --name=flocker-control-service clusterhq/flocker-control-service
+        - name: flocker_control_service 
+          image: "clusterhq/flocker-control-service"
+          net: host
+          volumes:
+           - "/var/vcap/jobs/flocker_control/config:/etc/flocker"
+          volumes_from:
+          - "flocker_control_volume"
+
+```
 
 
+On flocker_node job
+```
+      containers:
+        #docker run --restart=always -d --net=host --privileged -v /flocker:/flocker -v /:/host -v /etc/flocker:/etc/flocker -v /dev:/dev --name=flocker-dataset-agent clusterhq/flocker-dataset-agent
+        - name: flocker_dataset_agent
+          image: "clusterhq/flocker-dataset-agent:1.10.2"
+          net: host
+          privileged: true
+          volumes:
+          - "/flocker:/flocker" 
+          - "/:/host"
+          - "/var/vcap/jobs/flocker_node/config:/etc/flocker"
+          - "/dev:/dev"
+
+        # docker run --restart=always -d --net=host --privileged -v /etc/flocker:/etc/flocker -v /var/run/docker.sock:/var/run/docker.sock --name=flocker-container-agent clusterhq/flocker-container-agent
+        - name: flocker_container_agent
+          image:  clusterhq/flocker-container-agent:1.10.2
+          net: host
+          privileged: true
+          volumes:
+          - "/var/vcap/jobs/flocker_node/config:/etc/flocker"
+          - "/var/vcap/sys/run/docker/docker.sock:/var/run/docker.sock"  #target the docker boshrelease sock file location
 
 
+          #docker run --restart=always -d --net=host -e FLOCKER_CONTROL_SERVICE_BASE_URL=<Control-Service-Host-DNS-or-IP>:4523/v1 -e MY_NETWORK_IDENTITY=<Host-IP-Address> -v /etc/flocker:/etc/flocker -v /run/docker:/run/docker --name=flocker-docker-plugin clusterhq/flocker-docker-plugin
+        - name: flocker_docker_plugin
+          image: clusterhq/flocker-docker-plugin:1.10.2
+          net: host
+          volumes:
+          - "/var/vcap/jobs/flocker_node/config:/etc/flocker"
+          - "/run/docker:/run/docker"
+          env_vars:
+            - "FLOCKER_CONTROL_SERVICE_BASE_URL=https://<flocker_control_address>:4523/v1" #<Control-Service-Host-DNS-or-IP>
+            - "MY_NETWORK_IDENTITY=<node host IP>"  # <Host-IP-Address> 
+
+```
+
+
+Finally, configure your statefull container, so it leverages flocker volume-driver plugin
+
+```
+        # container with flocker docker volume driver
+        - name: xxx
+          image: "xxx:2"
+          bind_ports:
+            - "3206:3206"
+          volumes:
+          - "volumename:/var/lib/yyyy"
+          #this activates the flocker docker plugin
+          volume_driver: flocker
+
+```
 
 
 ## Usage
