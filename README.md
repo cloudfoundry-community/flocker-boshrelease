@@ -1,9 +1,26 @@
-# BOSH Release for flocker
+# BOSH Release for ClusterHQ Flocker
 
+## Purpose
+ClusterHQ Flocker is a very nice tool to manage STATEFULL Docker container. It enables the persistent volumes provisioning for containers, and is able to relocate this volume between different host.
+Its most usefull when associated with a container scheduler, like Docker Swarm, Mesos, or Kubernetes.
+
+Bosh is the general tool for Iaas Management, used for Cloudfoundry and most cloudfoundry-community provisioning and management.
+
+A generic Docker container management Bosh release is available. It can provision single containers, swarm managed containers, and on demand Cloudfoundry integrated services (CF Service Broker).
+https://github.com/cloudfoundry-community/docker-boshrelease
+
+This gives a very nice integration:
+- enables on the shelf docker image reuse for bosh operators
+- keep benefits of Bosh brilliant features (lifecycle management, health monitoring, versioned reproductible deployment)
+- the swarm integration can provision stateless containers to be scheduled on multiple VMs Bosh deployment  
+
+However, by design, Bosh manages a fixed number of external disk per VM. The above feature are not usable with statefull containers (eg: mongo/mysql/ ...)
+
+The purpose of this release is to raise this storage limitations, providing an integration of ClusterHQ Flocker with Bosh Docker Release.
 
 
 ## Design
-This bosh release is to be used with the docker bosh release.
+This bosh release is to be used with the docker bosh release. https://github.com/cloudfoundry-community/docker-boshrelease
 It enables on the fly persistent volume creation for docker containers
 On OpenStack, it creates dedicated volumes for docker containers, enabling HA and Docker Swarm clustering while keeping container persistent data
 https://docs.clusterhq.com/en/latest/flocker-features/openstack-configuration.html
@@ -19,7 +36,7 @@ The images are the clustehq images, initially designed for CoreOs Flocker protot
 The flocker containers services need high level of control of the bosh vms (host networking, priviliged access to create the device on node vm)
 
 
-### prerequisite
+### configuration
 generates necessary certificates for the flocker deployment
 flocker-ca command see 
 
