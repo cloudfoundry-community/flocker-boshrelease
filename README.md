@@ -20,7 +20,9 @@ The purpose of this release is to raise this storage limitations, providing an i
 
 
 ## Design
-This bosh release is to be used with the docker bosh release. https://github.com/cloudfoundry-community/docker-boshrelease
+The design is an bosh context adaption of the clusterHQ documentation https://docs.clusterhq.com/en/latest/flocker-standalone/manual-install.html
+This release must be used with the docker bosh release. https://github.com/cloudfoundry-community/docker-boshrelease
+
 It enables on the fly persistent volume creation for docker containers
 On OpenStack, it creates dedicated volumes for docker containers, enabling HA and Docker Swarm clustering while keeping container persistent data
 https://docs.clusterhq.com/en/latest/flocker-features/openstack-configuration.html
@@ -37,16 +39,17 @@ The flocker containers services need high level of control of the bosh vms (host
 
 
 ### configuration
-generates necessary certificates for the flocker deployment
-flocker-ca command see 
+To generate the necessary certificates for the flocker deployment, use flocker-ca command see
+- https://docs.clusterhq.com/en/latest/docker-integration/configuring-authentication.html
+- https://docs.clusterhq.com/en/latest/docker-integration/generate-api-certificates.html
+- https://docs.clusterhq.com/en/latest/docker-integration/generate-api-plugin.html 
 
-creates a bosh deployment, based on docker-bosh-release
+creates a bosh deployment, including docker-bosh-release and flocker-boshrelease
 
-the template flocker_control provisions the necessary configuration for flocker_control service
-the template flocker_node provisions the required configuration for node level service (flocker_dataset_agent / ...)
-
-configure flocker_control container, mounting /var/vcap/jobs/flocker_control/config as /etc/flocker, for master vm
-configure flocker_node containers, mounting /var/vcap/jobs/flocker_node/config as /etc/flocker, for node vm
+- the template flocker_control provisions the necessary configuration for flocker_control service
+- the template flocker_node provisions the required configuration for node level service (flocker_dataset_agent / ...)
+- configure flocker_control container, mounting /var/vcap/jobs/flocker_control/config as /etc/flocker, for master vm
+- configure flocker_node containers, mounting /var/vcap/jobs/flocker_node/config as /etc/flocker, for node vm
 
 
 Here is a sample of a flocked enabled deployment. Must set 2 templates do provision the certificates, and associate with docker bosh release containers template
@@ -78,7 +81,7 @@ jobs:
 
 ```
 
-The flocker certs must be created elsewhere, and be set as properties
+The flocker certs must be created with flocker-ca, and be set as properties
 
 
 ```
@@ -163,6 +166,8 @@ properties:
           password: <password> # <--- Replace with OpenStack password
 
 ```
+
+
 
 
 
