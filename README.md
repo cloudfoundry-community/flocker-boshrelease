@@ -1,4 +1,5 @@
 # BOSH Release for ClusterHQ Flocker
+![sample1](https://docs.clusterhq.com/en/latest/_static/images/logo@2x.png)
 
 ## Purpose
 ClusterHQ Flocker is a very nice tool to manage STATEFULL Docker container. It enables the persistent volumes provisioning for containers, and is able to relocate this volume between different host.
